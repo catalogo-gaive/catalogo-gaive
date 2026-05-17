@@ -583,7 +583,7 @@ const COLLANE_COUNT = 15;
 
 // ── CONFIGURAZIONE SUPABASE ──
 const SB_URL    = 'https://afhujzqnyflixndgnlfu.supabase.co';
-const SB_KEY    = 'sb_publishable_QY4Y99kjTd9y68WigWMp_A_Ag57z3TY';
+const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmaHVqenFueWZsaXhuZGdubGZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNDM2MDUsImV4cCI6MjA5NDYxOTYwNX0.TBjBduk_aL3QFE4GrdQE45aCc8apT6Tmgz6O3PdFXvw';
 const SB_TABLE  = 'gaive_catalogo';
 
 function showSaveStatus(msg, color) {
@@ -615,8 +615,10 @@ async function loadAllFromSupabase() {
     if (!res.ok) return;
     const rows = await res.json();
     rows.forEach(row => {
+      if (row.value && row.value.imgs) {
+        row.value.imgs = row.value.imgs.filter(s => s && s.startsWith('http'));
+      }
       window._sbData[row.key] = row.value;
-      try { localStorage.setItem('gaive_' + row.key, JSON.stringify(row.value)); } catch(e) {}
     });
   } catch(e) {}
 }
@@ -639,18 +641,11 @@ async function saveToSupabase(key, val) {
 
 function saveData(key, val) {
   window._sbData[key] = val;
-  try { localStorage.setItem('gaive_' + key, JSON.stringify(val)); } catch(e) {}
   saveToSupabase(key, val);
 }
 
 function loadData(key) {
-  // Prima leggi dalla memoria Supabase (più aggiornata)
   if (window._sbData && window._sbData[key] !== undefined) return window._sbData[key];
-  // Fallback localStorage
-  try {
-    const ls = localStorage.getItem('gaive_' + key);
-    if (ls !== null) return JSON.parse(ls);
-  } catch(e) {}
   return null;
 }
 
@@ -862,25 +857,75 @@ function carMove(id, dir) {
   goTo(id, next);
 }
 
+const SB_BUCKET = 'gaive-photos';
+
+function compressImage(file) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let w = img.width, h = img.height;
+      const MAX = 1200;
+      if (w > MAX || h > MAX) {
+        if (w > h) { h = Math.round(h*MAX/w); w = MAX; }
+        else { w = Math.round(w*MAX/h); h = MAX; }
+      }
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      c.toBlob(b => resolve(b || file), 'image/jpeg', 0.82);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+    img.src = url;
+  });
+}
+
+async function uploadToStorage(file, id) {
+  const blob = await compressImage(file);
+  const name = id + '_' + Date.now() + '_' + Math.random().toString(36).slice(2) + '.jpg';
+  const res = await fetch(SB_URL + '/storage/v1/object/' + SB_BUCKET + '/' + name, {
+    method: 'POST',
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'image/jpeg',
+      'x-upsert': 'true'
+    },
+    body: blob
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(err);
+  }
+  return SB_URL + '/storage/v1/object/public/' + SB_BUCKET + '/' + name;
+}
+
 // ── FILE HANDLING ──
-function handleFiles(id, input) {
+async function handleFiles(id, input) {
   const files = Array.from(input.files);
   if (!files.length) return;
+  showSaveStatus('⏳ Caricamento foto…', '#8a7340');
   const state = carState[id] || { imgs: [], cur: 0 };
-  let loaded = 0;
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-      state.imgs.push(ev.target.result);
-      loaded++;
-      if (loaded === files.length) {
-        carState[id] = state;
-        renderCarousel(id, state.imgs);
-        saveField(id, 'imgs', state.imgs);
-      }
-    };
-    reader.readAsDataURL(file);
-  });
+  carState[id] = state;
+  let ok = 0;
+  for (const file of files) {
+    try {
+      const url = await uploadToStorage(file, id);
+      state.imgs.push(url);
+      ok++;
+    } catch(e) {
+      console.error('upload error', e);
+    }
+  }
+  if (ok === 0) {
+    showSaveStatus('❌ Upload fallito', '#c0392b');
+    input.value = '';
+    return;
+  }
+  renderCarousel(id, state.imgs);
+  saveField(id, 'imgs', state.imgs);
+  input.value = '';
 }
 
 function saveField(id, field, val) {
