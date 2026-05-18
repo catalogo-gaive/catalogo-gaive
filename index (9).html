@@ -931,6 +931,7 @@ function renderGrid(gridId, category, count) {
 }
 // ── INIT: carica da Supabase poi renderizza ──
 initCatalogo();
+  setTimeout(initCatalogo, 2000);
 // Richiama dopo 3 secondi per assicurarsi che Supabase abbia risposto
 setTimeout(initCatalogo, 3000);
 
