@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaivè — Catalogo Collane</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5f0e8;
+  --cream2: #ede8de;
+  --gold: #8a7340;
+  --gold-light: #b09a5a;
+  --gold-pale: #d4c48a;
+  --dark: #2a2218;
+  --muted: #7a6e5a;
+  --white: #fdfaf5;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--cream); color:var(--dark); font-family:'Jost',sans-serif; font-weight:300; }
+
+/* HERO */
+.hero {
+  background:var(--white);
+  min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:60px 40px;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(184,163,100,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 80%, rgba(184,163,100,0.05) 0%, transparent 60%);
+  pointer-events:none;
+}
+.floral-deco { width:160px; margin-bottom:24px; opacity:.9; animation:sway 6s ease-in-out infinite; }
+@keyframes sway { 0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)} }
+.logo { font-family:'Cormorant Garamond',serif; font-size:clamp(60px,10vw,100px); font-weight:600; letter-spacing:.1em; color:var(--gold); line-height:1; margin-bottom:8px; }
+.logo-line { width:90px; height:1px; background:var(--gold); margin:0 auto 18px; opacity:.35; }
+.hero-tagline { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(15px,2.2vw,21px); color:var(--gold-light); margin-bottom:8px; }
+.hero-sub { font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); margin-bottom:44px; }
+.hero-badges { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:44px; }
+.badge { border:1px solid var(--gold-pale); color:var(--gold); padding:8px 16px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; border-radius:2px; }
+.hero-socials { display:flex; align-items:center; gap:14px; margin-bottom:36px; }
+.hero-social-link { display:flex; align-items:center; gap:7px; text-decoration:none; color:var(--gold); font-size:13px; letter-spacing:.08em; font-family:'Cormorant Garamond',serif; transition:color .2s; }
+.hero-social-link:hover { color:var(--dark); }
+.hero-social-sep { color:var(--gold-pale); font-size:18px; }
+.btn-primary { display:inline-block; background:var(--gold); color:var(--white); padding:14px 36px; font-size:11px; letter-spacing:.25em; text-transform:uppercase; text-decoration:none; border-radius:2px; transition:background .3s,transform .2s; }
+.btn-primary:hover { background:var(--dark); transform:translateY(-2px); }
+
+/* INFO BANNER */
+.info-banner { background:var(--gold); color:var(--white); padding:16px 40px; display:flex; justify-content:center; gap:40px; flex-wrap:wrap; text-align:center; }
+.info-banner span { font-size:11px; letter-spacing:.15em; text-transform:uppercase; opacity:.92; }
+
+/* SECTION */
+.section { padding:80px 40px 50px; max-width:1300px; margin:0 auto; }
+.section-head { text-align:center; margin-bottom:14px; }
+.section-label { font-size:10px; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+.section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(36px,5vw,54px); font-weight:300; font-style:italic; color:var(--dark); margin-bottom:10px; }
+.section-note { font-size:12px; color:var(--muted); max-width:500px; margin:0 auto 44px; line-height:1.8; text-align:center; }
+.divider { width:50px; height:1px; background:var(--gold-pale); margin:14px auto 18px; }
+.edit-hint { text-align:center; font-size:11px; color:var(--gold-pale); letter-spacing:.1em; margin-bottom:28px; font-style:italic; }
+
+/* CUSTOM BANNER */
+.custom-banner { background:rgba(138,115,64,.06); border:1px solid rgba(138,115,64,.15); border-radius:4px; padding:26px 36px; max-width:660px; margin:0 auto 50px; text-align:center; }
+.custom-banner h4 { font-family:'Cormorant Garamond',serif; font-size:20px; font-style:italic; color:var(--gold); margin-bottom:8px; }
+.custom-banner p { font-size:12px; color:var(--muted); line-height:1.8; }
+
+/* GRID */
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(188px,1fr)); gap:20px; }
+
+/* SLOT */
+.slot { background:var(--white); border:1px solid rgba(138,115,64,.12); border-radius:4px; overflow:hidden; transition:box-shadow .35s,transform .35s; position:relative; }
+.slot:hover { box-shadow:0 10px 36px rgba(138,115,64,.14); transform:translateY(-4px); }
+
+/* CAROUSEL */
+.slot-carousel { width:100%; aspect-ratio:1; background:var(--cream2); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.carousel-track { display:flex; width:100%; height:100%; transition:transform .35s ease; }
+.carousel-slide { min-width:100%; height:100%; position:relative; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:var(--cream2); cursor:pointer; overflow:hidden; }
+.carousel-slide img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+.slot-placeholder { display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--gold-pale); font-size:10px; letter-spacing:.12em; text-transform:uppercase; user-select:none; width:100%; height:100%; justify-content:center; cursor:pointer; }
+.slot-placeholder svg { width:32px; height:32px; opacity:.45; }
+
+/* carousel nav arrows — nascosti di default, visibili su hover desktop e sempre su mobile con più foto */
+.car-arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(138,115,64,.75); color:#fff; border:none; border-radius:50%; width:28px; height:28px; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:3; opacity:0; transition:opacity .2s; line-height:1; }
+.slot:hover .car-arrow { opacity:1; }
+.car-arrow.prev { left:7px; }
+.car-arrow.next { right:7px; }
+.has-multi .car-arrow { opacity:.85; }
+@media(max-width:768px){ .has-multi .car-arrow { opacity:.85; } }
+
+/* carousel dots */
+.car-dots { position:absolute; bottom:7px; left:50%; transform:translateX(-50%); display:flex; gap:5px; z-index:3; }
+.car-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.5); transition:background .2s; }
+.car-dot.active { background:#fff; }
+
+/* add-photo button — nascosto di default, visibile solo in modalità admin */
+.upload-btn { position:absolute; bottom:8px; right:8px; background:rgba(138,115,64,.9); color:#fff; border:none; border-radius:50%; width:40px; height:40px; font-size:22px; cursor:pointer; display:none; align-items:center; justify-content:center; z-index:4; transition:opacity .2s, background .2s; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+.admin-mode .upload-btn { display:flex; }
+.upload-btn:hover { background:var(--dark); }
+
+/* pulsante gestione foto (admin) */
+.manage-btn { position:absolute; top:8px; right:8px; background:rgba(138,115,64,.9); color:#fff; border:none; border-radius:3px; padding:4px 8px; font-size:10px; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; display:none; align-items:center; gap:4px; z-index:4; font-family:'Jost',sans-serif; }
+.admin-mode .manage-btn { display:flex; }
+.manage-btn:hover { background:var(--dark); }
+
+/* zoom button sulla foto — sempre visibile quando c'è un'immagine */
+.zoom-btn { position:absolute; bottom:6px; left:6px; background:transparent; color:var(--gold); border:none; border-radius:50%; width:20px; height:20px; font-size:11px; cursor:pointer; display:none; align-items:center; justify-content:center; z-index:4; transition:color .2s; line-height:1; opacity:.8; }
+.slot-carousel.has-img .zoom-btn { display:flex; }
+.zoom-btn:hover { background:var(--dark); }
+
+/* pannello gestione foto (admin) */
+.photo-mgr-overlay { display:none; position:fixed; inset:0; z-index:10001; background:rgba(30,24,14,.88); backdrop-filter:blur(8px); align-items:flex-start; justify-content:center; padding:20px 16px; overflow-y:auto; }
+.photo-mgr-overlay.open { display:flex; }
+.photo-mgr-panel { background:var(--white); border-radius:8px; padding:24px 20px; width:100%; max-width:460px; margin:auto; }
+.photo-mgr-panel h3 { font-family:'Cormorant Garamond',serif; font-size:20px; font-style:italic; color:var(--gold); margin-bottom:4px; }
+.photo-mgr-panel p { font-size:11px; color:var(--muted); margin-bottom:16px; }
+.photo-mgr-list { display:flex; flex-direction:column; gap:10px; margin-bottom:18px; min-height:40px; }
+.photo-mgr-item { display:flex; align-items:center; gap:10px; background:var(--cream); border:1px solid rgba(138,115,64,.15); border-radius:4px; padding:7px 10px; cursor:grab; user-select:none; }
+.photo-mgr-item.dragging { opacity:.4; border:2px dashed var(--gold); }
+.photo-mgr-item.drag-over { border:2px solid var(--gold); background:rgba(138,115,64,.08); }
+.photo-mgr-thumb { width:52px; height:52px; object-fit:cover; border-radius:3px; flex-shrink:0; pointer-events:none; }
+.photo-mgr-handle { color:var(--gold-pale); font-size:20px; cursor:grab; flex-shrink:0; line-height:1; }
+.photo-mgr-num { font-size:11px; color:var(--muted); flex:1; }
+.photo-mgr-del { background:none; border:none; color:#c0392b; font-size:22px; cursor:pointer; padding:0 4px; line-height:1; flex-shrink:0; }
+.photo-mgr-del:hover { color:#922b21; }
+.photo-mgr-actions { display:flex; gap:10px; }
+.photo-mgr-save { background:var(--gold); color:#fff; border:none; padding:10px 22px; font-size:11px; letter-spacing:.15em; text-transform:uppercase; border-radius:3px; cursor:pointer; font-family:'Jost',sans-serif; flex:1; }
+.photo-mgr-cancel { background:none; border:1px solid var(--gold-pale); color:var(--muted); padding:10px 16px; font-size:11px; letter-spacing:.1em; text-transform:uppercase; border-radius:3px; cursor:pointer; font-family:'Jost',sans-serif; }
+
+/* zoom lightbox su click immagine */
+.lb-img-wrap { cursor:zoom-in; }
+.lb-img-wrap.zoomed { cursor:zoom-out; }
+.lb-img { transition:transform .3s; transform-origin:center center; }
+.lb-img-wrap.zoomed .lb-img { transform:scale(2.2); cursor:zoom-out; }
+
+/* contenteditable disabilitato di default */
+[contenteditable="true"] { -webkit-user-select:none; user-select:none; cursor:default; }
+.admin-mode [contenteditable="true"] { -webkit-user-select:text; user-select:text; cursor:text; }
+
+/* edit-hint nascosto di default */
+.edit-hint { display:none; }
+.admin-mode .edit-hint { display:block; }
+
+/* barra admin */
+.admin-bar { display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999; background:var(--dark); color:var(--gold-light); padding:10px 20px; font-size:11px; letter-spacing:.15em; text-transform:uppercase; text-align:center; align-items:center; justify-content:center; gap:20px; border-top:1px solid var(--gold); }
+.admin-mode .admin-bar { display:flex; }
+.admin-exit-btn { background:var(--gold); color:#fff; border:none; padding:6px 16px; font-size:10px; letter-spacing:.15em; text-transform:uppercase; border-radius:2px; cursor:pointer; font-family:'Jost',sans-serif; }
+.admin-mode body { padding-bottom:55px; }
+
+/* pannello login admin */
+.admin-overlay { display:none; position:fixed; inset:0; z-index:10000; background:rgba(30,24,14,.92); backdrop-filter:blur(12px); align-items:center; justify-content:center; }
+.admin-overlay.open { display:flex; }
+.admin-panel { background:var(--white); border-radius:6px; padding:44px 36px; text-align:center; max-width:320px; width:90%; }
+.admin-panel h3 { font-family:'Cormorant Garamond',serif; font-size:26px; font-style:italic; color:var(--gold); margin-bottom:6px; }
+.admin-panel p { font-size:11px; color:var(--muted); margin-bottom:22px; letter-spacing:.05em; }
+.admin-input { width:100%; padding:11px 14px; border:1px solid var(--gold-pale); border-radius:3px; font-size:14px; font-family:'Jost',sans-serif; color:var(--dark); background:var(--cream); margin-bottom:12px; outline:none; -webkit-appearance:none; }
+.admin-input:focus { border-color:var(--gold); }
+.admin-btn { width:100%; background:var(--gold); color:#fff; border:none; padding:12px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; font-family:'Jost',sans-serif; border-radius:3px; cursor:pointer; }
+.admin-error { font-size:11px; color:#c0392b; margin-top:8px; display:none; }
+.admin-cancel { font-size:11px; color:var(--muted); cursor:pointer; margin-top:14px; display:inline-block; text-decoration:underline; }
+.upload-input { display:none; }
+
+/* SLOT BODY */
+.slot-body { padding:12px 13px 14px; }
+.slot-name { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:400; color:var(--dark); margin-bottom:3px; outline:none; min-height:22px; }
+.slot-name:focus { border-bottom:1px dashed var(--gold-pale); }
+.slot-name:empty::before { content:attr(data-ph); color:var(--gold-pale); font-style:italic; pointer-events:none; }
+.slot-price { font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic; color:var(--gold); margin-bottom:6px; outline:none; min-height:20px; }
+.slot-price:empty::before { content:attr(data-ph); color:var(--gold-pale); pointer-events:none; }
+.slot-desc { font-size:11px; color:var(--muted); line-height:1.6; outline:none; min-height:32px; border-top:1px solid rgba(138,115,64,.1); padding-top:7px; margin-top:3px; }
+.slot-desc:empty::before { content:attr(data-ph); color:#c8b98a; font-style:italic; pointer-events:none; }
+.slot-ship { font-size:10px; color:var(--gold-pale); margin-top:7px; }
+
+/* LIGHTBOX */
+.lightbox { display:none; position:fixed; inset:0; z-index:999; background:rgba(30,24,14,.92); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:16px; overflow-y:auto; }
+.lightbox.open { display:flex; }
+.lb-inner { background:var(--white); max-width:520px; width:100%; border-radius:6px; overflow:hidden; animation:lbIn .38s cubic-bezier(.34,1.4,.64,1); }
+@keyframes lbIn { from{opacity:0;transform:scale(.86)}to{opacity:1;transform:scale(1)} }
+.lb-img-wrap { width:100%; background:var(--cream2); position:relative; display:flex; align-items:center; justify-content:center; min-height:240px; }
+.lb-img { width:100%; max-height:65vw; object-fit:contain; display:block; background:var(--cream2); }
+.lb-arr { position:absolute; top:50%; transform:translateY(-50%); background:rgba(138,115,64,.8); color:#fff; border:none; border-radius:50%; width:34px; height:34px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:5; line-height:1; }
+.lb-arr.prev { left:10px; }
+.lb-arr.next { right:10px; }
+.lb-arr.hidden { display:none; }
+.lb-dots { display:flex; gap:6px; justify-content:center; padding:8px 0 2px; background:var(--cream2); }
+.lb-dot { width:7px; height:7px; border-radius:50%; background:rgba(138,115,64,.3); transition:background .2s; }
+.lb-dot.active { background:var(--gold); }
+.lb-body { padding:24px 22px; display:flex; flex-direction:column; gap:10px; }
+.lb-badge { font-size:9px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold-pale); }
+.lb-name { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:400; color:var(--dark); line-height:1.1; }
+.lb-desc { font-size:12px; color:var(--muted); line-height:1.7; }
+.lb-price { font-family:'Cormorant Garamond',serif; font-size:22px; font-style:italic; color:var(--gold); }
+.lb-info { font-size:11px; color:var(--muted); line-height:1.7; border-top:1px solid var(--cream2); padding-top:11px; }
+.lb-cta { display:inline-block; background:var(--gold); color:#fff; text-decoration:none; padding:12px 18px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; border-radius:2px; text-align:center; transition:background .3s; margin-top:4px; }
+.lb-cta:hover { background:var(--dark); }
+.lb-close { position:absolute; top:14px; right:18px; color:#fff; font-size:34px; cursor:pointer; z-index:1000; line-height:1; transition:opacity .2s; }
+.lb-close:hover { opacity:.5; }
+
+/* INFO DARK SECTION */
+.info-section { background:var(--dark); padding:65px 40px; }
+.info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:38px; max-width:980px; margin:0 auto; text-align:center; }
+.info-card .icon { font-size:24px; margin-bottom:12px; }
+.info-card h4 { font-family:'Cormorant Garamond',serif; font-size:19px; font-weight:400; color:var(--gold-light); margin-bottom:8px; }
+.info-card p { font-size:12px; color:rgba(253,250,245,.52); line-height:1.8; }
+
+/* FOOTER */
+footer { background:var(--white); padding:75px 40px 45px; }
+.footer-inner { max-width:860px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:55px; padding-bottom:45px; border-bottom:1px solid var(--cream2); }
+.footer-logo { font-family:'Cormorant Garamond',serif; font-size:38px; font-weight:600; color:var(--gold); letter-spacing:.1em; margin-bottom:6px; }
+.footer-tagline { font-size:12px; color:var(--muted); font-style:italic; margin-bottom:26px; }
+.contact-row { display:flex; gap:10px; align-items:baseline; margin-bottom:11px; font-size:13px; color:var(--muted); }
+.contact-row .lbl { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-pale); min-width:72px; }
+.footer-right h3 { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:300; font-style:italic; color:var(--dark); margin-bottom:22px; }
+.ig-link { display:flex; align-items:center; gap:13px; text-decoration:none; color:var(--dark); font-family:'Cormorant Garamond',serif; font-size:19px; margin-bottom:18px; transition:color .2s; }
+.ig-link:hover { color:var(--gold); }
+.ig-icon { width:38px; height:38px; border-radius:11px; background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); display:flex; align-items:center; justify-content:center; font-size:19px; color:#fff; flex-shrink:0; }
+.dm-btn { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,#f09433,#dc2743,#bc1888); color:#fff; text-decoration:none; padding:12px 22px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; border-radius:4px; transition:opacity .3s,transform .2s; margin-top:6px; }
+.dm-btn:hover { opacity:.82; transform:translateY(-2px); }
+.footer-bottom { text-align:center; padding-top:28px; font-size:11px; color:var(--gold-pale); letter-spacing:.1em; }
+
+/* NAV CATEGORIE MOBILE */
+.cat-nav { display:none; }
+@media(max-width:768px){
+  .cat-nav {
+    display:flex;
+    position:sticky; top:0; z-index:100;
+    background:var(--white);
+    border-bottom:1px solid rgba(138,115,64,.15);
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; gap:0;
+    padding:0 16px;
+  }
+  .cat-nav::-webkit-scrollbar { display:none; }
+  .cat-nav a {
+    flex-shrink:0;
+    text-decoration:none;
+    color:var(--muted);
+    font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+    padding:13px 16px;
+    border-bottom:2px solid transparent;
+    transition:color .2s, border-color .2s;
+    white-space:nowrap;
+    font-family:'Jost',sans-serif;
+  }
+  .cat-nav a.active, .cat-nav a:hover { color:var(--gold); border-bottom-color:var(--gold); }
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero { min-height:auto; padding:50px 20px 40px; }
+  .floral-deco { width:120px; }
+  .hero-badges { gap:7px; }
+  .badge { padding:6px 11px; font-size:9px; }
+  .hero-socials { gap:10px; }
+  .info-banner { padding:12px 16px; gap:10px; flex-direction:column; align-items:center; }
+  .section { padding:32px 14px 30px; }
+  .section-title { font-size:32px; }
+  .custom-banner { padding:18px 16px; }
+  .grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  .lb-inner { grid-template-columns:1fr; }
+  .lb-img { aspect-ratio:4/3; }
+  .footer-inner { grid-template-columns:1fr; gap:30px; }
+  .info-grid { gap:22px; }
+  footer { padding:40px 20px 30px; }
+  .slot-body { padding:9px 10px 11px; }
+  .slot-name { font-size:13px; }
+  .slot-price { font-size:13px; }
+  .slot-desc { font-size:10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Floral deco ispirata al logo Gaivè -->
+  <svg class="floral-deco" viewBox="0 0 220 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#8a7340" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- ramo principale: curva dal basso-sinistra verso alto-destra -->
+      <path d="M30 118 C50 100 72 88 90 70 C108 52 118 34 124 18"/>
+      <!-- foglioline ramo principale -->
+      <!-- foglia 1 -->
+      <path d="M55 102 C48 94 40 96 43 104 C46 112 56 110 55 102Z" fill="#8a7340" stroke="none"/>
+      <path d="M55 102 C52 97 46 97 43 104" stroke="#8a7340" stroke-width="0.6"/>
+      <!-- foglia 2 -->
+      <path d="M76 84 C69 76 61 78 64 86 C67 94 77 92 76 84Z" fill="#8a7340" stroke="none"/>
+      <path d="M76 84 C73 79 67 79 64 86" stroke="#8a7340" stroke-width="0.6"/>
+      <!-- foglia 3 -->
+      <path d="M95 65 C88 57 80 59 83 67 C86 75 96 73 95 65Z" fill="#8a7340" stroke="none"/>
+      <path d="M95 65 C92 60 86 60 83 67" stroke="#8a7340" stroke-width="0.6"/>
+      <!-- foglia 4 piccola -->
+      <path d="M110 48 C103 41 97 43 99 50 C101 57 110 55 110 48Z" fill="#8a7340" stroke="none"/>
+      <!-- bacca punta ramo principale -->
+      <circle cx="124" cy="15" r="3.2" fill="#8a7340" stroke="none"/>
+      <circle cx="130" cy="9" r="2" fill="#8a7340" stroke="none"/>
+      <path d="M124 15 C127 10 130 11 130 9" stroke="#8a7340" stroke-width="0.8"/>
+
+      <!-- ramo secondario: parte dal centro del principale, curva verso destra -->
+      <path d="M90 70 C104 72 118 76 132 78 C148 80 162 76 172 66"/>
+      <!-- foglioline ramo secondario -->
+      <!-- foglia A -->
+      <path d="M110 77 C112 68 120 66 122 73 C124 80 114 82 110 77Z" fill="#8a7340" stroke="none"/>
+      <path d="M110 77 C112 71 119 68 122 73" stroke="#8a7340" stroke-width="0.6"/>
+      <!-- foglia B -->
+      <path d="M136 79 C138 70 146 68 148 75 C150 82 140 84 136 79Z" fill="#8a7340" stroke="none"/>
+      <path d="M136 79 C138 73 145 70 148 75" stroke="#8a7340" stroke-width="0.6"/>
+      <!-- foglia C piccola -->
+      <path d="M158 72 C160 64 167 63 168 69 C169 75 161 76 158 72Z" fill="#8a7340" stroke="none"/>
+      <!-- bacca punta ramo secondario -->
+      <circle cx="172" cy="63" r="3" fill="#8a7340" stroke="none"/>
+      <circle cx="178" cy="57" r="2" fill="#8a7340" stroke="none"/>
+      <path d="M172 63 C175 59 178 59 178 57" stroke="#8a7340" stroke-width="0.8"/>
+    </g>
+  </svg>
+
+  <div class="logo">GAIVÈ</div>
+  <div class="logo-line"></div>
+  <div class="hero-tagline">Jewelry — made with love in Italy</div>
+  <div class="hero-sub">Catalogo collane artigianali · Handmade</div>
+
+  <!-- Social links -->
+  <div class="hero-socials">
+    <a class="hero-social-link" href="https://www.instagram.com/gaivessence" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      @gaivessence
+    </a>
+    <span class="hero-social-sep">·</span>
+    <a class="hero-social-link" href="https://www.tiktok.com/@gaive__" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.76a4.85 4.85 0 01-1.03-.07z"/>
+      </svg>
+      @gaive__
+    </a>
+  </div>
+
+  <div class="hero-badges">
+    <div class="badge">✦ Choker</div>
+    <div class="badge">✦ Collane in Acciaio</div>
+    <div class="badge">✦ Personalizzabili</div>
+    <div class="badge">✦ Spedizione tracciata</div>
+  </div>
+  <a class="btn-primary" href="#chokers">Sfoglia il catalogo ↓</a>
+</section>
+
+<!-- INFO BANNER -->
+<div class="info-banner">
+  <span>📦 <strong>Spedizione €4</strong> — tutta Italia</span>
+  <span>📬 <strong>Tracciata</strong> · 4–6 gg lavorativi</span>
+  <span>✉ Ordini via <strong>Instagram DM</strong></span>
+</div>
+
+<!-- NAV CATEGORIE (visibile solo su mobile) -->
+<nav class="cat-nav" id="catNav">
+  <a href="#chokers" class="active">✦ Choker</a>
+  <a href="#collane">✦ Collane in Acciaio</a>
+  <a href="#contatti">✦ Contatti</a>
+</nav>
+
+<!-- CHOKER SECTION -->
+<section id="chokers" class="section">
+  <div class="section-head">
+    <div class="section-label">✦ Collezione</div>
+    <h2 class="section-title">Choker</h2>
+    <div class="divider"></div>
+    <p class="section-note">Girocollo artigianali — realizzati a mano con cura. Scorri per scoprire tutti i modelli disponibili.</p>
+  </div>
+  <div class="custom-banner">
+    <h4>✦ Personalizzazione disponibile</h4>
+    <p>Per alcuni choker puoi scegliere il colore del cordino da abbinare al ciondolo che preferisci.<br>
+    Non tutti i modelli sono personalizzabili — <strong>scrivimi in DM</strong> e troveremo insieme la combinazione perfetta per te.</p>
+  </div>
+  <div class="edit-hint">✎ Hover su un riquadro → clicca + per caricare la foto &nbsp;·&nbsp; Clicca sui testi per modificarli &nbsp;·&nbsp; Clicca sull'immagine per ingrandirla</div>
+  <div class="grid" id="choker-grid"></div>
+</section>
+
+<!-- COLLANE SECTION -->
+<section id="collane" class="section" style="padding-top:20px;">
+  <div class="section-head">
+    <div class="section-label">✦ Collezione</div>
+    <h2 class="section-title">Collane</h2>
+    <div class="divider"></div>
+    <p class="section-note">Collane in acciaio inossidabile — ipoallergeniche, resistenti all'acqua. Non anneriscono nel tempo.</p>
+  </div>
+  <div class="edit-hint">✎ Hover su un riquadro → clicca + per caricare la foto &nbsp;·&nbsp; Clicca sui testi per modificarli &nbsp;·&nbsp; Clicca sull'immagine per ingrandirla</div>
+  <div class="grid" id="collane-grid"></div>
+</section>
+
+<!-- DARK INFO -->
+<div class="info-section">
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="icon">💳</div>
+      <h4>Pagamento</h4>
+      <p>Accetto <strong style="color:var(--gold-light)">PayPal</strong> e <strong style="color:var(--gold-light)">Bonifico bancario</strong>.<br>
+      Scrivi in DM per concordare il pagamento.</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">📦</div>
+      <h4>Spedizione</h4>
+      <p>Tramite <strong style="color:var(--gold-light)">Poste Italiane</strong>.<br>
+      Costo fisso <strong style="color:var(--gold-light)">€4</strong> per ogni ordine.<br>
+      Consegna in <strong style="color:var(--gold-light)">4–6 giorni lavorativi</strong>.<br>
+      Spedizione <strong style="color:var(--gold-light)">tracciata</strong> — ricevi il codice.</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">✨</div>
+      <h4>Personalizzazione</h4>
+      <p>Alcuni choker si possono personalizzare nel colore del cordino.<br>
+      Scrivimi per scoprire le opzioni disponibili.</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">🤍</div>
+      <h4>Handmade in Italy</h4>
+      <p>Ogni pezzo è realizzato a mano.<br>
+      Piccole variazioni fanno parte della natura artigianale di ogni collana.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contatti">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-logo">GAIVÈ</div>
+      <div class="footer-tagline">Jewelry — made with love in Italy</div>
+      <div class="contact-row"><span class="lbl">Ordini</span><span>Scrivi in DM su Instagram</span></div>
+      <div class="contact-row"><span class="lbl">Pagamento</span><span>PayPal · Bonifico</span></div>
+      <div class="contact-row"><span class="lbl">Spedizione</span><span>€4 · Tracciata · 4–6 gg lav.</span></div>
+    </div>
+    <div class="footer-right">
+      <h3>Scrivimi su Instagram</h3>
+      <a class="ig-link" href="https://www.instagram.com/gaivessence" target="_blank">
+        <div class="ig-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/>
+          </svg>
+        </div>
+        @gaivessence
+      </a>
+      <a class="ig-link" href="https://www.tiktok.com/@gaive__" target="_blank">
+        <div class="ig-icon" style="background:linear-gradient(135deg,#010101,#69C9D0,#EE1D52);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.52V6.76a4.85 4.85 0 01-1.03-.07z"/>
+          </svg>
+        </div>
+        @gaive__
+      </a>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;">
+        Per ordini, info su un prodotto o richieste di personalizzazione — scrivimi direttamente in DM!
+      </p>
+      <a class="dm-btn" href="https://ig.me/m/gaivessence" target="_blank">✉ Scrivimi in DM</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Gaivè · @gaivessence · Jewelry made with love in Italy</div>
+</footer>
+
+<!-- ADMIN LOGIN PANEL -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <h3>✦ Modalità Admin</h3>
+    <p>Inserisci la password per modificare il catalogo</p>
+    <input class="admin-input" type="password" id="adminPwd" placeholder="Password..." autocomplete="current-password">
+    <button class="admin-btn" onclick="checkAdminPwd()">Accedi</button>
+    <div class="admin-error" id="adminError">Password errata. Riprova.</div>
+    <div class="admin-cancel" onclick="closeAdminOverlay()">Annulla</div>
+  </div>
+</div>
+
+<!-- BARRA ADMIN (visibile solo in modalità admin) -->
+<div class="admin-bar">
+  <span>✎ Modalità modifica — salvataggio automatico per tutti</span>
+  <button class="admin-exit-btn" onclick="exitAdmin()">Esci</button>
+</div>
+
+<!-- PANNELLO GESTIONE FOTO -->
+<div class="photo-mgr-overlay" id="photoMgrOverlay">
+  <div class="photo-mgr-panel">
+    <h3>✦ Gestione foto</h3>
+    <p>Trascina per riordinare · Tocca 🗑 per eliminare</p>
+    <div class="photo-mgr-list" id="photoMgrList"></div>
+    <div class="photo-mgr-actions">
+      <button class="photo-mgr-cancel" onclick="closePhotoMgr()">Annulla</button>
+      <button class="photo-mgr-save" onclick="savePhotoMgr()">✓ Salva ordine</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lb-close" onclick="closeLb()">×</span>
+  <div class="lb-inner">
+    <div class="lb-img-wrap">
+      <button class="lb-arr prev hidden" id="lb-prev" onclick="lbArrow(-1)">‹</button>
+      <img class="lb-img" id="lb-img" src="" alt="">
+      <button class="lb-arr next hidden" id="lb-next" onclick="lbArrow(1)">›</button>
+    </div>
+    <div class="lb-dots" id="lb-dots"></div>
+    <div class="lb-body">
+      <div class="lb-badge" id="lb-badge"></div>
+      <div class="lb-name" id="lb-name"></div>
+      <div class="lb-desc" id="lb-desc"></div>
+      <div class="lb-price" id="lb-price"></div>
+      <div class="lb-info">📦 Spedizione €4 — tracciata · 4–6 gg lavorativi<br>💳 Pagamento: PayPal o Bonifico</div>
+      <a class="lb-cta" href="https://ig.me/m/gaivessence" target="_blank">✉ Ordina in DM su Instagram</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── ADMIN MODE ──
+// Per attivare la modifica: tocca/clicca il logo GAIVÈ 5 volte rapidamente
+const ADMIN_PASSWORD = 'gaive2025'; // ← cambia questa password come vuoi
+let logoTapCount = 0;
+let logoTapTimer = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const logo = document.querySelector('.logo');
+  if (logo) {
+    logo.style.cursor = 'default';
+    logo.addEventListener('click', () => {
+      logoTapCount++;
+      clearTimeout(logoTapTimer);
+      logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1800);
+      if (logoTapCount >= 5) {
+        logoTapCount = 0;
+        openAdminOverlay();
+      }
+    });
+  }
+});
+
+function openAdminOverlay() {
+  document.getElementById('adminOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('adminPwd').focus(), 100);
+}
+function closeAdminOverlay() {
+  document.getElementById('adminOverlay').classList.remove('open');
+  document.getElementById('adminPwd').value = '';
+  document.getElementById('adminError').style.display = 'none';
+}
+function checkAdminPwd() {
+  const val = document.getElementById('adminPwd').value;
+  if (val === ADMIN_PASSWORD) {
+    closeAdminOverlay();
+    enterAdmin();
+  } else {
+    document.getElementById('adminError').style.display = 'block';
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('adminOverlay').classList.contains('open')) {
+    checkAdminPwd();
+  }
+});
+function enterAdmin() {
+  document.body.classList.add('admin-mode');
+  // abilita contenteditable su tutti i campi testo
+  document.querySelectorAll('.slot-name, .slot-price, .slot-desc').forEach(el => {
+    el.setAttribute('contenteditable', 'true');
+  });
+}
+function exitAdmin() {
+  document.body.classList.remove('admin-mode');
+  document.querySelectorAll('.slot-name, .slot-price, .slot-desc').forEach(el => {
+    el.setAttribute('contenteditable', 'false');
+    el.blur();
+  });
+}
+
+const CHOKER_COUNT  = 20;
+const COLLANE_COUNT = 15;
+
+// ── CONFIGURAZIONE SUPABASE ──
+const SB_URL    = 'https://afhujzqnyflixndgnlfu.supabase.co';
+const SB_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmaHVqenFueWZsaXhuZGdubGZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwNDM2MDUsImV4cCI6MjA5NDYxOTYwNX0.TBjBduk_aL3QFE4GrdQE45aCc8apT6Tmgz6O3PdFXvw';
+const SB_TABLE  = 'gaive_catalogo';
+
+function showSaveStatus(msg, color) {
+  let el = document.getElementById('gaive-save-status');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'gaive-save-status';
+    el.style.cssText = 'position:fixed;top:16px;right:16px;z-index:99999;color:#fff;padding:10px 18px;border-radius:4px;font-size:12px;letter-spacing:.08em;font-family:Jost,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.18);transition:opacity .5s;';
+    document.body.appendChild(el);
+  }
+  el.style.background = color;
+  el.style.opacity = '1';
+  el.textContent = msg;
+  clearTimeout(el._hide);
+  if (color !== '#8a7340') {
+    el._hide = setTimeout(() => { el.style.opacity = '0'; }, 3500);
+  }
+}
+
+// Carica tutti i dati da Supabase all'avvio pagina
+// Salva in _sbData (memoria) E in localStorage
+window._sbData = {};
+
+async function loadAllFromSupabase() {
+  try {
+    const res = await fetch(`${SB_URL}/rest/v1/${SB_TABLE}?select=key,value`, {
+      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+    });
+    if (!res.ok) return;
+    const rows = await res.json();
+    rows.forEach(row => {
+      window._sbData[row.key] = row.value;
+      try { localStorage.setItem('gaive_' + row.key, JSON.stringify(row.value)); } catch(e) {}
+    });
+  } catch(e) {}
+}
+
+// Salva un singolo campo su Supabase (upsert)
+async function saveToSupabase(key, val) {
+  try {
+    await fetch(`${SB_URL}/rest/v1/${SB_TABLE}`, {
+      method: 'POST',
+      headers: {
+        'apikey': SB_KEY,
+        'Authorization': 'Bearer ' + SB_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify({ key: key, value: val })
+    });
+  } catch(e) {}
+}
+
+function saveData(key, val) {
+  window._sbData[key] = val;
+  try { localStorage.setItem('gaive_' + key, JSON.stringify(val)); } catch(e) {}
+  saveToSupabase(key, val);
+}
+
+function loadData(key) {
+  // Prima leggi dalla memoria Supabase (più aggiornata)
+  if (window._sbData && window._sbData[key] !== undefined) return window._sbData[key];
+  // Fallback localStorage
+  try {
+    const ls = localStorage.getItem('gaive_' + key);
+    if (ls !== null) return JSON.parse(ls);
+  } catch(e) {}
+  return null;
+}
+
+let _publishTimer = null;
+function schedulePublish() {
+  clearTimeout(_publishTimer);
+  showSaveStatus('💾 Salvataggio…', '#8a7340');
+  _publishTimer = setTimeout(() => showSaveStatus('✅ Salvato per tutti!', '#2a7340'), 1500);
+}
+
+// Avvia il caricamento dati da Supabase, poi renderizza le griglie
+async function initCatalogo() {
+  // Prima renderizza la griglia vuota subito
+  renderGrid('choker-grid',  'choker',  CHOKER_COUNT);
+  renderGrid('collane-grid', 'collane', COLLANE_COUNT);
+  // Poi carica i dati da Supabase e aggiorna le immagini
+  await loadAllFromSupabase();
+  // Aggiorna tutti gli slot con le immagini caricate
+  Object.keys(window._sbData).forEach(id => {
+    const saved = window._sbData[id];
+    if (!saved) return;
+    const imgs = (saved.imgs || (saved.img ? [saved.img] : [])).filter(s => s && s.length > 10);
+    const track = document.getElementById('track_' + id);
+    console.log('Aggiorno slot', id, 'imgs:', imgs.length, 'track exists:', !!track);
+    if (imgs.length > 0 && track) renderCarousel(id, imgs);
+    // aggiorna anche testi
+    const nameEl = document.getElementById('name_' + id);
+    const priceEl = document.getElementById('price_' + id);
+    const descEl = document.getElementById('desc_' + id);
+    if (nameEl && saved.name) nameEl.textContent = saved.name;
+    if (priceEl && saved.price) priceEl.textContent = saved.price;
+    if (descEl && saved.desc) descEl.textContent = saved.desc;
+  });
+}
+
+
+// ── BUILD SLOT with carousel ──
+function buildSlot(index, category) {
+  const id = category + '_' + index;
+  const saved = loadData(id) || {};
+  const imgs = (saved.imgs || (saved.img ? [saved.img] : [])).filter(s => s && s.length > 10); // rimuovi stringhe vuote
+
+  const slot = document.createElement('div');
+  slot.className = 'slot';
+  slot.dataset.id = id;
+  slot.dataset.category = category;
+
+  // carousel HTML
+  const carouselEl = document.createElement('div');
+  carouselEl.className = 'slot-carousel';
+  carouselEl.id = 'car_' + id;
+
+  const track = document.createElement('div');
+  track.className = 'carousel-track';
+  track.id = 'track_' + id;
+  carouselEl.appendChild(track);
+
+  // prev/next arrows
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'car-arrow prev';
+  prevBtn.innerHTML = '‹';
+  prevBtn.onclick = (e) => { e.stopPropagation(); carMove(id, -1); };
+  carouselEl.appendChild(prevBtn);
+
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'car-arrow next';
+  nextBtn.innerHTML = '›';
+  nextBtn.onclick = (e) => { e.stopPropagation(); carMove(id, 1); };
+  carouselEl.appendChild(nextBtn);
+
+  // dots
+  const dotsEl = document.createElement('div');
+  dotsEl.className = 'car-dots';
+  dotsEl.id = 'dots_' + id;
+  carouselEl.appendChild(dotsEl);
+
+  // iOS fix: usa <label> invece di button+click() — è il modo più affidabile su Safari iOS
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.className = 'upload-input';
+  fileInput.id = 'file_' + id;
+  fileInput.multiple = true;
+  fileInput.onchange = function() { handleFiles(id, this); };
+  carouselEl.appendChild(fileInput);
+
+  const uploadLabel = document.createElement('label');
+  uploadLabel.className = 'upload-btn';
+  uploadLabel.title = 'Aggiungi foto';
+  uploadLabel.innerHTML = '+';
+  uploadLabel.setAttribute('for', 'file_' + id);
+  uploadLabel.setAttribute('role', 'button');
+  uploadLabel.addEventListener('click', e => e.stopPropagation());
+  carouselEl.appendChild(uploadLabel);
+
+  // pulsante gestione foto (riordina/elimina) — solo admin
+  const manageBtn = document.createElement('button');
+  manageBtn.className = 'manage-btn';
+  manageBtn.title = 'Gestisci foto';
+  manageBtn.innerHTML = '⊞ Foto';
+  manageBtn.addEventListener('click', e => { e.stopPropagation(); openPhotoMgr(id); });
+  carouselEl.appendChild(manageBtn);
+
+  // pulsante zoom — sempre visibile quando c'è immagine
+  const zoomBtn = document.createElement('button');
+  zoomBtn.className = 'zoom-btn';
+  zoomBtn.title = 'Zoom';
+  zoomBtn.innerHTML = '🔍';
+  zoomBtn.addEventListener('click', e => { e.stopPropagation(); openLb(id, category); });
+  carouselEl.appendChild(zoomBtn);
+
+  slot.appendChild(carouselEl);
+
+  // text body — FIX: no onclick stopPropagation on the fields themselves,
+  // just make them contenteditable and let the browser handle focus naturally
+  const body = document.createElement('div');
+  body.className = 'slot-body';
+  body.innerHTML = `
+    <div class="slot-name" contenteditable="true" data-ph="Nome prodotto" id="name_${id}">${saved.name || ''}</div>
+    <div class="slot-price" contenteditable="true" data-ph="€ —" id="price_${id}">${saved.price || ''}</div>
+    <div class="slot-desc" contenteditable="true" data-ph="Breve descrizione..." id="desc_${id}">${saved.desc || ''}</div>
+    <div class="slot-ship">📦 Spedizione €4 · Tracciata</div>`;
+  slot.appendChild(body);
+
+  // save on blur for each field
+  ['name','price','desc'].forEach(field => {
+    const el = body.querySelector('#' + field + '_' + id);
+    el.setAttribute('contenteditable', 'false'); // disabilitato di default
+    el.addEventListener('blur', () => saveField(id, field, el.innerText.trim()));
+    // prevent carousel click from firing when user taps text (only in admin mode)
+    el.addEventListener('mousedown', e => { if(document.body.classList.contains('admin-mode')) e.stopPropagation(); });
+    el.addEventListener('touchstart', e => { if(document.body.classList.contains('admin-mode')) e.stopPropagation(); }, {passive:true});
+  });
+
+  // click on carousel area → open lightbox (not on controls)
+  carouselEl.addEventListener('click', function(e) {
+    if (e.target.closest('.upload-btn') || e.target.closest('.upload-input') ||
+        e.target.closest('.car-arrow') || e.target.closest('.manage-btn') ||
+        e.target.closest('.zoom-btn')) return;
+    openLb(id, category);
+  });
+
+  // touch swipe support
+  let tsX = null;
+  carouselEl.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, {passive:true});
+  carouselEl.addEventListener('touchend', e => {
+    if (tsX === null) return;
+    const dx = e.changedTouches[0].clientX - tsX;
+    if (Math.abs(dx) > 40) carMove(id, dx < 0 ? 1 : -1);
+    tsX = null;
+  });
+
+  // render existing images
+  renderCarousel(id, imgs);
+
+  return slot;
+}
+
+// ── CAROUSEL STATE ──
+const carState = {}; // id -> { imgs:[], cur:0 }
+
+function renderCarousel(id, imgs) {
+  carState[id] = carState[id] || { imgs: [], cur: 0 };
+  carState[id].imgs = imgs;
+  const track = document.getElementById('track_' + id);
+  const dotsEl = document.getElementById('dots_' + id);
+  if (!track) return;
+
+  track.innerHTML = '';
+  dotsEl.innerHTML = '';
+
+  if (imgs.length === 0) {
+    // empty placeholder slide
+    const slide = document.createElement('div');
+    slide.className = 'carousel-slide';
+    slide.innerHTML = `<div class="slot-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <path d="M21 15l-5-5L5 21"/>
+      </svg>
+      <span>Aggiungi foto</span>
+    </div>`;
+    track.appendChild(slide);
+    return;
+  }
+
+  imgs.forEach((src, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'carousel-slide';
+    const img = document.createElement('img');
+    img.src = src; img.alt = '';
+    slide.appendChild(img);
+    track.appendChild(slide);
+
+    const dot = document.createElement('div');
+    dot.className = 'car-dot' + (i === 0 ? ' active' : '');
+    dotsEl.appendChild(dot);
+  });
+
+  if (imgs.length > 1) {
+    const car = document.getElementById('car_' + id);
+    if (car) car.closest('.slot').classList.add('has-multi');
+  }
+
+  // toggle has-img per mostrare/nascondere zoom button
+  const carEl = document.getElementById('car_' + id);
+  if (carEl) carEl.classList.toggle('has-img', imgs.length > 0);
+
+  goTo(id, Math.min(carState[id].cur, imgs.length - 1));
+}
+
+function goTo(id, index) {
+  const state = carState[id];
+  if (!state) return;
+  state.cur = index;
+  const track = document.getElementById('track_' + id);
+  if (track) track.style.transform = `translateX(-${index * 100}%)`;
+  const dots = document.querySelectorAll(`#dots_${id} .car-dot`);
+  dots.forEach((d, i) => d.classList.toggle('active', i === index));
+}
+
+function carMove(id, dir) {
+  const state = carState[id];
+  if (!state || state.imgs.length <= 1) return;
+  const next = (state.cur + dir + state.imgs.length) % state.imgs.length;
+  goTo(id, next);
+}
+
+// ── FILE HANDLING ──
+function compressToBase64(file, maxPx, quality) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let w = img.width, h = img.height;
+      if (w > maxPx || h > maxPx) {
+        if (w > h) { h = Math.round(h * maxPx / w); w = maxPx; }
+        else { w = Math.round(w * maxPx / h); h = maxPx; }
+      }
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      resolve(c.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
+  });
+}
+
+async function handleFiles(id, input) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+  showSaveStatus('⏳ Caricamento…', '#8a7340');
+  const state = carState[id] || { imgs: [], cur: 0 };
+  carState[id] = state;
+  for (const file of files) {
+    const b64 = await compressToBase64(file, 600, 0.65);
+    if (b64) state.imgs.push(b64);
+  }
+  renderCarousel(id, state.imgs);
+  saveField(id, 'imgs', state.imgs);
+  input.value = '';
+}
+
+function saveField(id, field, val) {
+  const saved = loadData(id) || {};
+  saved[field] = val;
+  saveData(id, saved);
+  schedulePublish();
+}
+
+// ── RENDER GRIDS ──
+function renderGrid(gridId, category, count) {
+  const grid = document.getElementById(gridId);
+  for (let i = 0; i < count; i++) grid.appendChild(buildSlot(i, category));
+}
+// ── INIT: carica da Supabase poi renderizza ──
+initCatalogo();
+  setTimeout(initCatalogo, 2000);
+// Richiama dopo 3 secondi per assicurarsi che Supabase abbia risposto
+setTimeout(initCatalogo, 3000);
+
+// ── LIGHTBOX ──
+function openLb(id, category) {
+  const state = carState[id] || { imgs:[], cur:0 };
+  const name  = (document.getElementById('name_'  + id)?.innerText || '').trim();
+  const price = (document.getElementById('price_' + id)?.innerText || '').trim();
+  const desc  = (document.getElementById('desc_'  + id)?.innerText || '').trim();
+
+  document.getElementById('lb-badge').textContent = category === 'choker' ? 'Choker · Gaivè' : 'Collana · Gaivè';
+  document.getElementById('lb-name').textContent  = name  || '—';
+  document.getElementById('lb-price').textContent = price || '—';
+  document.getElementById('lb-desc').textContent  = desc;
+
+  window._lbId = id; window._lbCat = category;
+
+  lbShowImg(state);
+
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbShowImg(state) {
+  const lbImg = document.getElementById('lb-img');
+  const src = state.imgs[state.cur] || '';
+  if (src) { lbImg.src = src; lbImg.style.display = 'block'; }
+  else      { lbImg.src = ''; lbImg.style.display = 'none'; }
+
+  // frecce
+  const multi = state.imgs.length > 1;
+  document.getElementById('lb-prev').classList.toggle('hidden', !multi);
+  document.getElementById('lb-next').classList.toggle('hidden', !multi);
+
+  // dots
+  const dotsEl = document.getElementById('lb-dots');
+  dotsEl.innerHTML = '';
+  if (multi) {
+    state.imgs.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'lb-dot' + (i === state.cur ? ' active' : '');
+      dotsEl.appendChild(d);
+    });
+  }
+}
+
+function lbArrow(dir) {
+  const id = window._lbId;
+  if (!id) return;
+  carMove(id, dir);
+  lbShowImg(carState[id]);
+}
+
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+  // reset zoom
+  const wrap = document.querySelector('.lb-img-wrap');
+  if (wrap) wrap.classList.remove('zoomed');
+}
+document.getElementById('lightbox').addEventListener('click', function(e){ if(e.target===this) closeLb(); });
+
+// zoom su click immagine lightbox
+document.querySelector('.lb-img-wrap').addEventListener('click', function(e) {
+  if (e.target.closest('.lb-arr')) return;
+  this.classList.toggle('zoomed');
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowRight') lbArrow(1);
+  if (e.key === 'ArrowLeft')  lbArrow(-1);
+});
+
+// ── GESTIONE FOTO (riordina + elimina) ──
+let _mgrId = null;
+let _mgrImgs = [];
+let _dragSrc = null;
+
+function openPhotoMgr(id) {
+  _mgrId = id;
+  _mgrImgs = [...(carState[id]?.imgs || [])];
+  renderMgrList();
+  document.getElementById('photoMgrOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePhotoMgr() {
+  document.getElementById('photoMgrOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  _mgrId = null;
+}
+
+function renderMgrList() {
+  const list = document.getElementById('photoMgrList');
+  list.innerHTML = '';
+  if (_mgrImgs.length === 0) {
+    list.innerHTML = '<p style="color:var(--muted);font-size:12px;text-align:center;padding:12px 0;">Nessuna foto caricata.</p>';
+    return;
+  }
+  _mgrImgs.forEach((src, i) => {
+    const item = document.createElement('div');
+    item.className = 'photo-mgr-item';
+    item.draggable = true;
+    item.dataset.idx = i;
+    item.innerHTML = `
+      <span class="photo-mgr-handle">⠿</span>
+      <img class="photo-mgr-thumb" src="${src}" alt="foto ${i+1}">
+      <span class="photo-mgr-num">Foto ${i + 1}</span>
+      <button class="photo-mgr-del" title="Elimina" onclick="mgrDelete(${i})">🗑</button>`;
+
+    // drag & drop desktop
+    item.addEventListener('dragstart', e => {
+      _dragSrc = i;
+      item.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    item.addEventListener('dragend', () => item.classList.remove('dragging'));
+    item.addEventListener('dragover', e => { e.preventDefault(); item.classList.add('drag-over'); });
+    item.addEventListener('dragleave', () => item.classList.remove('drag-over'));
+    item.addEventListener('drop', e => {
+      e.preventDefault();
+      item.classList.remove('drag-over');
+      if (_dragSrc === null || _dragSrc === i) return;
+      const moved = _mgrImgs.splice(_dragSrc, 1)[0];
+      _mgrImgs.splice(i, 0, moved);
+      renderMgrList();
+    });
+
+    // touch drag support (mobile)
+    let touchStartY = 0, touchItem = null;
+    item.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+      touchItem = i;
+    }, {passive:true});
+    item.addEventListener('touchend', e => {
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      const step = Math.round(dy / 70); // circa altezza item
+      if (step === 0) return;
+      const newIdx = Math.max(0, Math.min(_mgrImgs.length - 1, touchItem + step));
+      if (newIdx !== touchItem) {
+        const moved = _mgrImgs.splice(touchItem, 1)[0];
+        _mgrImgs.splice(newIdx, 0, moved);
+        renderMgrList();
+      }
+    });
+
+    list.appendChild(item);
+  });
+}
+
+function mgrDelete(idx) {
+  _mgrImgs.splice(idx, 1);
+  renderMgrList();
+}
+
+function savePhotoMgr() {
+  const id = _mgrId;
+  carState[id] = carState[id] || { imgs: [], cur: 0 };
+  carState[id].imgs = _mgrImgs;
+  carState[id].cur = 0;
+  renderCarousel(id, _mgrImgs);
+  saveField(id, 'imgs', _mgrImgs);
+  closePhotoMgr();
+}
+
+// ── NAV CATEGORIE MOBILE: aggiorna voce attiva sullo scroll ──
+(function(){
+  const navLinks = document.querySelectorAll('.cat-nav a');
+  const sections = ['chokers','collane','contatti'].map(id => document.getElementById(id)).filter(Boolean);
+  window.addEventListener('scroll', () => {
+    let cur = sections[0];
+    sections.forEach(s => { if(window.scrollY >= s.offsetTop - 80) cur = s; });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur.id);
+    });
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>
